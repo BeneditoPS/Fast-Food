@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+
+{% block produto %}
+<div class="container">
+    <table class="table table-hover table-striped table-condesed">
+        <tr>
+         <th>ID DO PRODUTO</th>
+         <th>NOME DO PRODUTO</th>
+         <th>DECRIÇÃO</th>
+         <th>PREÇO</th>
+         <th>DISPONIBILIDADE</th>
+         <th>IMAGEM</th>   
+        </tr>
+        {% for Produto in object_list %}
+        <tr>
+            <td>{{ Produto.pk }}</td>
+            <td>{{ Produto.nome }}</td>
+            <td>{{ Produto.descricao }}</td>
+            <td>{{ Produto.preco }}</td>
+            <td>{{ Produto.disponibilidade }}</td>
+            <td><a href="{{ Produto.imagem.url }}">imagem</a></td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="3">Nenhum campo encontrado</td>
+        </tr>
+    {% endfor %}
+
+    </table>
+</div>
+{% endblock %}
