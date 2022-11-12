@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block produto %}
+
+<div class="container">
+    <h2 class="title">APAGAR PRODUTO</h2>
+    <div id="lista">
+        <br><br><br>
+        <strong>{{ object }}</strong><br>
+        Tens a certeza que deseja apagar este produto do stock ?
+
+        <form method="POST" enctype="multipart/form-data" style="padding-bottom: 100px; padding-top:50px;">
+            {% csrf_token %}
+            
+            {{ form|crispy }}
+            
+            <a href="{% url 'lista-de-produto' %}" class="btn btn-secondary"> cancelar </a>
+            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> apagar </button>
+        </form>
+    </div>
+    </div>
+
+{% endblock %}

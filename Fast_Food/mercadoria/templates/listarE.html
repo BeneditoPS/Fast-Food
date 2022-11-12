@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+
+{% block produto %}
+<div class="container">
+    <h2>LISTA DE ENCOMENDAS</h2>
+    <div  id="lista">
+        <table class="table table-hover table-striped table-condesed">
+            <tr>
+             <th>ID</th>
+             <th>PRODUTO</th>
+             <th>QT</th>
+             <th>ESTADO</th>
+             <th>CLIENTE</th>
+             <th>BI</th>
+             <th>TELEFONE</th>
+             <th>LOCALIZAÇÃO</th>
+             <th>OPÇÕES</th>   
+            </tr>
+            {% for Encomenda in object_list %}
+            <tr>
+                <td>{{ Encomenda.pk }}</td>
+                <td>{{ Encomenda.produto }}</td>
+                <td>{{ Encomenda.quantidade }}</td>
+                <td>{{ Encomenda.estado }}</td>
+                <td>{{ Encomenda.nome }}</td>
+                <td>{{ Encomenda.bilhete }}</td>
+                <td>{{ Encomenda.telefone }}</td>
+                <td>{{ Encomenda.localizacao }}</td>
+                <td>
+                    <a href="{% url 'alterar-encomenda' Encomenda.pk %}" class="btn btn-warning" data-toggle="tooltip" title="editar">
+                        <i class="fa fa-cog">
+                        </i>
+                    </a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">Nenhum campo encontrado</td>
+            </tr>
+        {% endfor %}
+    
+        </table>
+    </div>
+</div>
+{% endblock %}

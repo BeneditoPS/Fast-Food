@@ -1,0 +1,65 @@
+body{
+    background-color: goldenrod;
+}
+
+img{
+    height: 200px;
+    width: 300px;
+}
+
+.navbar-dark .navbar-nav > li > a:hover{
+	color: goldenrod;
+	font-size: 20px;
+}
+
+.navbar-dark .navbar-nav > li > a:link{
+	color: goldenrod;
+	font-size: 20px;
+	background: none;
+}
+
+.navbar-dark .navbar-nav > li > a:visited{
+	color: goldenrod;
+	font-size: 20px;
+	background: none;
+}
+
+.navbar-dark .navbar-nav > li > a:active{
+	color: goldenrod;
+	font-size: 20px;
+	background: none;
+}
+
+.navbar-dark .navbar-nav > li > a{
+	font-size: 20px;
+	background: none;
+}
+
+footer{
+    height: 200px;
+}
+
+h4{
+    color:#fff;
+}
+
+#lista{
+    background-color: goldenrod;
+    padding: 20px 5px 100px 5px; 
+}
+
+#cont{
+    padding: 30px 30px 30px 30px;
+}
+
+#conteudo{
+    background-color: rgba(255, 248, 240, 0.11);
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+#artigo{
+    background-color: goldenrod;
+    padding-top: 5px 5px 5px 5px;
+    margin: 10px 5px 5px 5px;
+}

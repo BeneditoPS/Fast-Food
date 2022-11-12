@@ -4,22 +4,21 @@
 
 
 {% block produto %}
-<br>
-<br>
 
 <div class="container">
-    <h2 class="title">Registrar produto</h2>
-    <hr>
+    <h2 class="title">REGISTRAR PRODUTO</h2>
 
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        
-        {{ form|crispy }}
-        
-        <a href="{% url 'lista-de-produto' %}" class="btn btn-secondary">cancelar</a>
-        <button type="submit" class="btn btn-primary">criar</button>
-    </form>
+    <div   id="lista">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {{ form|crispy }}
+            
+            <hr>
+            <a href="{% url 'lista-de-produto' %}" class="btn btn-secondary"> cancelar </a>
+            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> salvar </button>
+        </form>
+    </div>
 </div>
-    <br>
-    <br>
+
 {% endblock %}

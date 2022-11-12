@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block produto1 %}
+
+<div class="container">
+    <h2 class="title">ENCOMENDAR PRODUTO</h2>
+
+    <form method="POST" id="lista">
+        {% csrf_token %}
+        
+        {{ form|crispy }}
+        
+        <hr>
+        <a href="{% url 'lista-de-encomenda' %}" class="btn btn-secondary"> cancelar </a>
+        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> salvar </button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block produto %}
+
+<div class="container">
+    <h2 class="title">ENCOMENDAR PRODUTO</h2>
+
+    <form method="POST" id="lista">
+        {% csrf_token %}
+        
+        {{ form|crispy }}
+        
+        <hr>
+        <a href="{% url 'lista-de-encomenda' %}" class="btn btn-secondary"> cancelar </a>
+        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> salvar </button>
+    </form>
+</div>
+
+{% endblock %}

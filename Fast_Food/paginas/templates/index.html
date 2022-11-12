@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -9,8 +10,8 @@
     <title>Fast Food</title>
 
     <!-- Bootstrap -->
-    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/estilo.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilodo.css' %}">
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -21,15 +22,13 @@
     <![endif]-->
   </head>
   <body>
+    {% if request.user.is_authenticated %}
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container">
             <a href="#" class="navbar-brand">FAST FOOD</a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#barra">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-        {% if request.user.is_authenticated %}
-
             <div class="collapse navbar-collapse justify-content-end" id="barra">
                 <ul class="nav navbar-nav">
                     <li class="nav-item"><a href="{% url 'inicio' %}" class="nav-link">mercado</a></li>
@@ -38,8 +37,9 @@
                             produto
                         </a>
                         <div class="dropdown-menu">
-                            <a href="{% url 'criar-produto' %}" class="dropdown-item">registrar produtos</a>
-                            <a href="{% url 'lista-de-produto' %}" class="dropdown-item">ver produtos</a>
+                            <a href="{% url 'criar-produto' %}" class="dropdown-item">registrar</a>
+                            <a href="{% url 'lista-de-produto' %}" class="dropdown-item">produtos</a>
+                            <a href="{% url 'lista-de-encomenda' %}" class="dropdown-item">encomendas</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -52,35 +52,20 @@
                     </li>
                 </ul>
             </div>
-
-        {% else %}
-
-            <div class="collapse navbar-collapse justify-content-end" id="barra">
-                <ul class="nav navbar-nav">
-                    <li class="nav-item"><a href="{% url 'inicio' %}" class="nav-link">mercado</a></li>
-                    <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">entrar</a></li>
-                </ul>
-            </div>
-
-        {% endif %}
         </div>
     </nav>
-
     {% block produto %}
-    <br>
-    <br>
-    <br>
-    <br>
+ 
     <div class="container" id="conteudo">
-        <div style="padding-bottom: 20px;" class="lead">
+        <div class="lead">
             Seja bem-vindo ao TALAMARKET. <br>
              aqui você encontra carros esportivos à preços acessíveis ao teu bolso,<br>
-            Os melhores carros do mercado do desporto automobilístico bem a sua disposição.
+            
         </div>
   
         <div class="row">
 
-{% for Produto in object_list %}
+    {% for Produto in object_list %}
             <div class="col-md-4" id="cont">
                 <div class="col-md-12">
                     <img src="{{ Produto.imagem.url }}" class="img-fluid mx-auto d.block rounded">
@@ -89,6 +74,7 @@
                     <span><strong> Nome:</strong></span>{{ Produto.nome }}<br>
                     <span><strong> Descrição:</strong></span> {{ Produto.descricao }}<br>
                     <span><strong> Preço:</strong></span> {{ Produto.preco }}<br>
+                    <hr>
                     <td>
                         <a href="{% url 'alterar-produto' Produto.pk %}" class="btn btn-warning btn-md" title="Editar">
                             <i class="fa fa-cog"></i>
@@ -99,10 +85,10 @@
                     </td>
                 </div>
             </div>
-{% empty %}
-Sem dados
+    {% empty %}
+    Sem dados
 
-{% endfor%}
+    {% endfor%}
 
         </div>
     </div>
@@ -137,6 +123,85 @@ Sem dados
             </div>
         </div>
     </footer>
+    {% else %}
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <a href="#" class="navbar-brand">FAST FOOD</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#barra">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="barra">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item"><a href="{% url 'inicio' %}" class="nav-link">mercado</a></li>
+                    <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">entrar</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% block produto1 %}
+
+    <div class="container" id="conteudo">
+        <div class="lead">
+            Seja bem-vindo ao TALAMARKET. <br>
+             aqui você encontra carros esportivos à preços acessíveis ao teu bolso,<br>
+            
+        </div>
+  
+        <div class="row">
+
+    {% for Produto in object_list %}
+            <div class="col-md-4" id="cont">
+                <div class="col-md-12">
+                    <img src="{{ Produto.imagem.url }}" class="img-fluid mx-auto d.block rounded">
+                </div>
+                <div class="col-md-12"  id="artigo">
+                    <span><strong> Nome:</strong></span>{{ Produto.nome }}<br>
+                    <span><strong> Descrição:</strong></span> {{ Produto.descricao }}<br>
+                    <span><strong> Preço:</strong></span> {{ Produto.preco }}<br>
+                    <hr>
+                    <a type="button" href="{% url 'criar-encomenda' %}" class="btn btn-success">encomendar</a>
+                </div>
+            </div>
+    {% empty %}
+    Sem dados
+
+    {% endfor%}
+
+        </div>
+    </div>
+    {% endblock %}
+
+    <footer class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h4>Linhas de Apoio</h4>
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item"><a href="#" class="nav-link">Facebook</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item"><a href="#" class="nav-link">Whatsapp</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-5">
+                    <h4>Sobre Nós</h4>
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item"><a href="#" class="nav-link">Site</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item"><a href="#" class="nav-link">Empresa</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-1">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item"><a href="#" class="nav-link">Apoio</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endif %}
     
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
